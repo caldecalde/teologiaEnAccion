@@ -1,0 +1,41 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { cfImageSrcset, cfImageUrl, DEFAULT_WIDTHS } from '../lib/cfImage';
+
+interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'srcset'> {
+  /** Ruta relativa en el bucket R2 (p. ej. "secciones/inicio.jpg"). */
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  sizes?: string;
+  widths?: number[];
+  priority?: boolean;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  sizes = '100vw',
+  widths = DEFAULT_WIDTHS,
+  priority = false,
+  ...rest
+} = Astro.props;
+
+const srcset = cfImageSrcset(src, widths);
+---
+
+<img
+  src={cfImageUrl(src, { width })}
+  srcset={srcset}
+  sizes={srcset ? sizes : undefined}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={priority ? 'eager' : 'lazy'}
+  fetchpriority={priority ? 'high' : undefined}
+  decoding="async"
+  {...rest}
+/>

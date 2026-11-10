@@ -1,0 +1,31 @@
+---
+// Logo provisional (libro abierto + cruz). Reemplazar por el SVG oficial cuando esté disponible.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<svg viewBox="0 0 120 80" class={className} role="img" aria-label="Teología en Acción">
+  <defs>
+    <linearGradient id="logo-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E3CD95" />
+      <stop offset="1" stop-color="#B8954A" />
+    </linearGradient>
+  </defs>
+  <!-- rayos -->
+  <g stroke="url(#logo-gold)" stroke-width="1.6" stroke-linecap="round" opacity="0.85">
+    <path d="M60 4v-2M44 10l-2-2M76 10l2-2M36 22h-3M84 22h3" />
+  </g>
+  <!-- cruz -->
+  <path d="M56 6h8v14h12v8H64v24h-8V28H44v-8h12z" fill="#F6F1EA" />
+  <!-- libro -->
+  <g fill="none" stroke="url(#logo-gold)" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M60 58c-12-8-30-9-46-6V36c16-3 34-2 46 6" />
+    <path d="M60 58c12-8 30-9 46-6V36c-16-3-34-2-46 6" />
+    <path d="M60 66c-14-8-34-9-52-5V44" />
+    <path d="M60 66c14-8 34-9 52-5V44" />
+    <path d="M60 42v24" />
+  </g>
+</svg>

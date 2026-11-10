@@ -1,0 +1,33 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Seccion } from '../data/secciones';
+import CfImage from './CfImage.astro';
+
+type Props = Seccion;
+
+const { title, description, href, icon, image, imageAlt } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group flex w-full min-w-0 flex-col overflow-hidden rounded-card bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+>
+  <div class="relative aspect-[16/9] overflow-hidden bg-navy-800">
+    <CfImage
+      src={image}
+      alt={imageAlt}
+      width={640}
+      height={360}
+      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+      widths={[400, 640, 960]}
+      class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+    />
+    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-900 via-navy-900/85 to-transparent px-5 pt-10 pb-3">
+      <h3 class="flex items-center gap-3 text-xl font-semibold text-white">
+        <Icon name={icon} class="size-7 shrink-0 text-cream-50" aria-hidden="true" />
+        <span>{title}</span>
+      </h3>
+    </div>
+  </div>
+  <p class="flex-1 px-5 py-4 text-[0.95rem] leading-relaxed text-ink/85">{description}</p>
+</a>

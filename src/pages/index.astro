@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionCard from '../components/SectionCard.astro';
+import VideoCard from '../components/VideoCard.vue';
+import DonateCTA from '../components/DonateCTA.astro';
+import { secciones } from '../data/secciones';
+import { videosDestacados } from '../data/videos';
+import { site } from '../config/site';
+---
+
+<BaseLayout>
+  <!-- Bienvenida -->
+  <section class="mx-auto max-w-7xl px-4 pt-10 pb-6 sm:px-6 lg:px-8 lg:pt-8">
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold tracking-widest text-gold-500 uppercase">Bienvenidos</p>
+      <h1 class="mt-2 font-display text-3xl leading-tight font-bold text-navy-900 sm:text-4xl">
+        Formando creyentes para vivir la Palabra
+      </h1>
+      <p class="mt-4 text-base leading-relaxed text-ink/80 sm:text-lg">
+        {site.description} Explora nuestras secciones y crece en el conocimiento de Dios.
+      </p>
+    </div>
+  </section>
+
+  <!-- Secciones del ministerio -->
+  <section aria-labelledby="secciones-titulo" class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <h2 id="secciones-titulo" class="sr-only">Secciones del ministerio</h2>
+    <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+      {secciones.map((s) => (
+        <li class="flex">
+          <SectionCard {...s} />
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Videos destacados -->
+  {
+    videosDestacados.length > 0 && (
+      <section aria-labelledby="videos-titulo" class="mt-10 bg-navy-900 py-14">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p class="text-sm font-semibold tracking-widest text-gold-500 uppercase">Enseñanzas</p>
+              <h2 id="videos-titulo" class="mt-1 font-display text-2xl font-bold text-cream-50 sm:text-3xl">
+                Videos destacados
+              </h2>
+            </div>
+            <a href="/series-biblicas" class="text-sm font-semibold text-gold-300 hover:text-gold-500">
+              Ver todas las series →
+            </a>
+          </div>
+          <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {videosDestacados.map((v) => (
+              <li>
+                <VideoCard client:visible youtubeId={v.youtubeId} title={v.title} serie={v.serie} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  <DonateCTA />
+</BaseLayout>

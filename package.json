@@ -1,0 +1,30 @@
+{
+  "name": "teologia-en-accion",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/vue": "^7.1.4",
+    "@fontsource/cinzel": "^5.3.0",
+    "@fontsource/montserrat": "^5.3.0",
+    "@iconify-json/lucide": "^1.2.153",
+    "@nanostores/vue": "^1.1.0",
+    "@tailwindcss/vite": "^4.3.5",
+    "astro": "^7.4.10",
+    "astro-icon": "^1.2.0",
+    "nanostores": "^1.5.5",
+    "tailwindcss": "^4.3.5",
+    "vue": "^3.5.45"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3"
+  }
+}

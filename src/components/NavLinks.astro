@@ -1,0 +1,57 @@
+---
+import { Icon } from 'astro-icon/components';
+import { isActive, nav } from '../config/site';
+
+interface Props {
+  variant: 'desktop' | 'mobile';
+}
+
+const { variant } = Astro.props;
+const { pathname } = Astro.url;
+---
+
+{
+  variant === 'desktop' ? (
+    <ul class="flex items-stretch">
+      {nav.map((item, i) => {
+        const active = isActive(item.href, pathname);
+        return (
+          <li class:list={['flex flex-1 items-center', i > 0 && 'border-l border-white/15']}>
+            <a
+              href={item.href}
+              aria-current={active ? 'page' : undefined}
+              class:list={[
+                'mx-1.5 flex w-full flex-col items-center justify-center gap-1.5 rounded-xl px-2 py-3 text-center text-[0.95rem] leading-tight font-semibold transition-colors',
+                active ? 'bg-gold-500 text-navy-900 shadow-md' : 'text-white hover:bg-white/10 hover:text-gold-300',
+              ]}
+            >
+              <Icon name={item.icon} class="size-7" aria-hidden="true" />
+              <span>{item.label}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  ) : (
+    <ul class="space-y-1">
+      {nav.map((item) => {
+        const active = isActive(item.href, pathname);
+        return (
+          <li>
+            <a
+              href={item.href}
+              aria-current={active ? 'page' : undefined}
+              class:list={[
+                'flex items-center gap-4 rounded-xl px-4 py-3 text-base font-semibold transition-colors',
+                active ? 'bg-gold-500 text-navy-900' : 'text-white hover:bg-white/10',
+              ]}
+            >
+              <Icon name={item.icon} class="size-6 shrink-0" aria-hidden="true" />
+              <span>{item.label}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  )
+}

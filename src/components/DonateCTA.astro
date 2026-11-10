@@ -1,0 +1,22 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '../config/site';
+
+const external = /^https?:\/\//.test(site.donateUrl);
+---
+
+<section id="apoyo" class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+  <div class="flex items-center gap-4 sm:gap-8">
+    <span class="h-px flex-1 bg-navy-900/25" aria-hidden="true"></span>
+    <a
+      href={site.donateUrl}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+      class="inline-flex shrink-0 items-center gap-3 rounded-2xl bg-gold-400 px-6 py-4 text-lg font-bold text-navy-900 shadow-card transition hover:bg-gold-300 hover:shadow-card-hover sm:px-10 sm:text-xl"
+    >
+      <Icon name="lucide:hand-heart" class="size-7" aria-hidden="true" />
+      Apoya este ministerio
+    </a>
+    <span class="h-px flex-1 bg-navy-900/25" aria-hidden="true"></span>
+  </div>
+</section>

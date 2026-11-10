@@ -1,0 +1,61 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+import { site } from '../config/site';
+import Header from '../components/Header.astro';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+import VideoPlayer from '../components/VideoPlayer.vue';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = site.description, image = '/og-image.svg' } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.tagline.join(' · ')}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+---
+
+<!doctype html>
+<html lang={site.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0e1a2b" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://i.ytimg.com" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CR" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <ClientRouter />
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <a
+      href="#contenido"
+      class="sr-only z-[200] rounded-lg bg-gold-500 px-4 py-2 font-semibold text-navy-900 focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+    >
+      Saltar al contenido
+    </a>
+    <Header />
+    <NavBar />
+    <main id="contenido" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <VideoPlayer client:load transition:persist="video-player" />
+  </body>
+</html>
